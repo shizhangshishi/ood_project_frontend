@@ -1,11 +1,9 @@
 <template>
     <v-container>
-        <v-navigation-drawer>
-            TopNav
-            <v-btn @click="login" v-if="!hasLogin">login</v-btn>
-            <v-btn @click="register" v-if="!hasLogin">register</v-btn>
-            <v-btn @click="logout" v-if="hasLogin">logout</v-btn>
-        </v-navigation-drawer>
+        TopNav
+        <v-btn @click="login" v-if="!hasLogin">login</v-btn>
+        <v-btn @click="register" v-if="!hasLogin">register</v-btn>
+        <v-btn @click="logout" v-if="hasLogin">logout</v-btn>
     </v-container>
 </template>
 

@@ -1,8 +1,8 @@
 const ROLE = {
-    AUDIT:  'audit',
-    MARKET: 'market',
-    EXPERT: 'expert',
-    ANY:    'any'
+    AUDIT:  'AUDIT',
+    MARKET: 'MARKET',
+    EXPERT: 'EXPERT',
+    ANY:    'ANY'
 };
 export default {
     ROLE

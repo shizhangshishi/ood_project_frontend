@@ -5,7 +5,7 @@
     <v-overlay :value="overlay" z-index="500">
       <v-progress-circular indeterminate size="64"></v-progress-circular>
     </v-overlay>
-    <v-snackbar v-model="showSnackbar" :timeout="2000" :color="snackbarType" top>
+    <v-snackbar v-model="showSnackbar" :timeout="1500" :color="snackbarType" top>
       {{ snackbarMessage }}
       <v-btn color="white" text @click="showSnackbar = false">
         Close

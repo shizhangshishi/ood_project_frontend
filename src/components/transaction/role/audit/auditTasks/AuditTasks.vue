@@ -1,12 +1,12 @@
 <template>
     <v-container>
-        Audit
+        AuditTasks
     </v-container>
 </template>
 
 <script>
     export default {
-        name: "Audit"
+        name: "AuditTasks"
     }
 </script>
 
