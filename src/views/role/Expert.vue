@@ -1,12 +1,12 @@
 <template>
     <v-container>
-        SignUp
+        Expert
     </v-container>
 </template>
 
 <script>
     export default {
-        name: "SignUp"
+        name: "Expert"
     }
 </script>
 

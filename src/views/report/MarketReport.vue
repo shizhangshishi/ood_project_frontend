@@ -1,12 +1,12 @@
 <template>
     <v-container>
-        MarketTask
+        MarketReport
     </v-container>
 </template>
 
 <script>
     export default {
-        name: "MarketTask"
+        name: "MarketReport"
     }
 </script>
 

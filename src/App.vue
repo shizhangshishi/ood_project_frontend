@@ -1,60 +1,42 @@
 <template>
   <v-app>
-    <v-app-bar
-      app
-      color="primary"
-      dark
-    >
-      <div class="d-flex align-center">
-        <v-img
-          alt="Vuetify Logo"
-          class="shrink mr-2"
-          contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-          transition="scale-transition"
-          width="40"
-        />
-
-        <v-img
-          alt="Vuetify Name"
-          class="shrink mt-1 hidden-sm-and-down"
-          contain
-          min-width="100"
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-          width="100"
-        />
-      </div>
-
-      <v-spacer></v-spacer>
-
-      <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-        text
-      >
-        <span class="mr-2">Latest Release</span>
-        <v-icon>mdi-open-in-new</v-icon>
+    <!-- 全局 overlay 以及 snackbar，用来跨页面为用户提示消息 -->
+    <!-- 使用的方法：通过 this.$root.$children[0] 在其它组件中获得 App.vue 组件的对象 -->
+    <v-overlay :value="overlay" z-index="500">
+      <v-progress-circular indeterminate size="64"></v-progress-circular>
+    </v-overlay>
+    <v-snackbar v-model="showSnackbar" :timeout="2000" :color="snackbarType" top>
+      {{ snackbarMessage }}
+      <v-btn color="white" text @click="showSnackbar = false">
+        Close
       </v-btn>
-    </v-app-bar>
+    </v-snackbar>
 
-    <v-main>
-      <HelloWorld/>
-    </v-main>
+    <router-view/>
   </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld';
+  import messages from './config/messages'
+  export default {
+    name: 'App',
 
-export default {
-  name: 'App',
-
-  components: {
-    HelloWorld,
-  },
-
-  data: () => ({
-    //
-  }),
-};
+    data: () => ({
+      overlay: false,
+      showSnackbar: false,
+      snackbarMessage: '',
+      snackbarType: '',
+      messages:messages
+    }),
+    methods: {
+      notify(message, type) {
+        this.showSnackbar = true;
+        this.snackbarMessage = message;
+        this.snackbarType = type;
+      },
+    },
+    mounted() {
+      // this.updateToken();
+    }
+  };
 </script>
