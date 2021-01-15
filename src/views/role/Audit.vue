@@ -2,7 +2,6 @@
     <v-container>
         <TopNav></TopNav>
         <LeftNav :items="items"></LeftNav>
-        Audit
         <v-content>
             <router-view/>
         </v-content>
@@ -20,17 +19,17 @@
                 items: [
                     {
                         name: 'AuditTasks',
-                        icon: 'mdi-view-grid',
+                        icon: 'mdi-folder-text-outline',
                         click: this.openAuditTasks
                     },
                     {
                         name: 'Executives',
-                        icon: 'mdi-view-grid',
+                        icon: 'mdi-account',
                         click: this.openExecutives
                     },
                     {
                         name: 'Products',
-                        icon: 'mdi-view-grid',
+                        icon: 'mdi-one-up',
                         click: this.openProducts
                     }
                 ]

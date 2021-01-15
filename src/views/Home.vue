@@ -1,8 +1,19 @@
 <template>
   <v-container>
     <TopNav></TopNav>
-    Home
-    <v-btn @click="start">start</v-btn>
+    <v-content>
+      <v-card>
+        <v-card-title>
+          Welcome to MarketSupervise!
+        </v-card-title>
+        <v-card-text>
+          MarketSupervise is a.....
+        </v-card-text>
+        <v-card-actions>
+          <v-btn @click="start">Start Now</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-content>
   </v-container>
 </template>
 
@@ -24,8 +35,6 @@
     },
     methods:{
       start(){
-        // // console.log(this.$store.state.token.role);
-        // this.role = constant.ROLE.AUDIT;
         if (this.role === constant.ROLE.AUDIT){
           this.$router.replace({path: '/audit'});
         }
