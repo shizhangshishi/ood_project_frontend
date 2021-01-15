@@ -2,7 +2,6 @@
     <v-container>
         <TopNav></TopNav>
         <LeftNav :items="items"></LeftNav>
-        Market
         <v-content>
             <router-view/>
         </v-content>

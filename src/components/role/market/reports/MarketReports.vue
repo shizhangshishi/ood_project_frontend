@@ -1,23 +1,53 @@
 <template>
     <v-container>
-        MarketReports
-        <v-card>
-            <v-card-text>
-                <v-btn @click="checkMarketReports">Check All Market Reports</v-btn>
-            </v-card-text>
-        </v-card>
-        <v-card v-if="showMarketReports">
-            <v-card-text>
-                <v-data-table :headers="headers" :items="marketReports" disable-sort>
-                    <template v-slot:item.detail="{ item }">
-                        <v-icon @click="checkMarketReport(item.id)">mdi-eye</v-icon>
-                    </template>
-                </v-data-table>
-            </v-card-text>
-            <v-card-actions>
-                <v-btn @click="showMarketReports=false">Close</v-btn>
-            </v-card-actions>
-        </v-card>
+        <v-container>
+            <v-card>
+                <v-card-title>
+                    Market Reports
+                </v-card-title>
+                <v-card-text>
+                    <v-row justify="center" align="center">
+                        <v-col cols="10">
+                            <v-row>
+                                <v-col cols="12" md="6">
+                                    <v-card outlined>
+                                        <v-card-title>Check Reports</v-card-title>
+                                        <v-card-subtitle>
+                                            Check all market reports.
+                                        </v-card-subtitle>
+                                        <v-card-actions>
+                                            <v-spacer></v-spacer>
+                                            <v-btn color="primary" @click="checkMarketReports">
+                                                Check
+                                            </v-btn>
+                                        </v-card-actions>
+                                    </v-card>
+                                </v-col>
+                            </v-row>
+                        </v-col>
+                    </v-row>
+                </v-card-text>
+            </v-card>
+        </v-container>
+        <v-container v-if="showMarketReports">
+            <v-card>
+                <v-card-title>
+                    <v-col cols="4">
+                        All Market Reports
+                    </v-col>
+                    <v-col cols="20">
+                        <v-btn color="red" text @click="showMarketReports=false">Close</v-btn>
+                    </v-col>
+                </v-card-title>
+                <v-card-text>
+                    <v-data-table :headers="headers" :items="marketReports" disable-sort>
+                        <template v-slot:item.detail="{ item }">
+                            <v-icon @click="checkMarketReport(item.id)">mdi-eye</v-icon>
+                        </template>
+                    </v-data-table>
+                </v-card-text>
+            </v-card>
+        </v-container>
     </v-container>
 </template>
 

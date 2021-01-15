@@ -1,66 +1,107 @@
 <template>
     <v-container>
-        <v-card>
-            <v-card-title>AuditTask</v-card-title>
-            <v-card-text>
-                id: {{auditTask.id}},
-                type: {{auditTask.type}}, // market or expert
-                description: {{auditTask.description}},
-                deadline: {{auditTask.deadline}},
-                completed: {{auditTask.completed}},
-            </v-card-text>
-        </v-card>
-        <v-card>
-            {{auditTask.description}}
-        </v-card>
-        <v-card>
-            <v-btn @click="showTypes=true">Check Product Types</v-btn>
-            <v-btn @click="checkUncompletedMarkets">Check Uncompleted Markets</v-btn>
-        </v-card>
-        <v-card v-if="showMarkets">
-            <v-card-title>Uncompleted Markets in Task</v-card-title>
-            <v-card-text>
-                <v-data-table :headers="market_headers" :items="markets" disable-sort>
-                </v-data-table>
-            </v-card-text>
-            <v-card-actions>
-                <v-btn @click="showMarkets=false">Close</v-btn>
-            </v-card-actions>
-        </v-card>
-        <v-card v-if="showTypes">
-            <v-card-title>Product Types in Task</v-card-title>
-            <v-card-text>
-                <v-radio-group v-model="completed">
-                    <v-radio label="completed" value="true"></v-radio>
-                    <v-radio label="not completed" value="false"></v-radio>
-                </v-radio-group>
-                <v-btn @click="checkTypes">Check</v-btn>
-
-                <v-data-table :headers="headers" :items="productTypes" disable-sort>
-                    <template v-slot:item.num="{ item }">
-                        <v-icon @click="checkNum(item.name)">mdi-eye</v-icon>
-                    </template>
-                </v-data-table>
-            </v-card-text>
-            <v-card-actions>
-                <v-btn @click="showTypes=false">Close</v-btn>
-            </v-card-actions>
-        </v-card>
-        <v-dialog max-width="600" v-model="showNum">
-            <v-card>
-                <v-card-title>
-                    Unqualified Num is: {{num}}
-                </v-card-title>
-            </v-card>
-        </v-dialog>
+        <TopNav></TopNav>
+        <v-content>
+            <v-container>
+                <v-container>
+                    <v-card>
+                        <v-card-title>
+                            Audit Task
+                        </v-card-title>
+                        <v-card-text>
+                            <v-row justify="center" align="center">
+                                <v-col cols="10">
+                                    <v-row>
+                                        <v-col cols="12" md="6">
+                                            <v-card outlined>
+                                                <v-card-title>Check Markets</v-card-title>
+                                                <v-card-subtitle>
+                                                    Check uncompleted markets.
+                                                </v-card-subtitle>
+                                                <v-card-actions>
+                                                    <v-spacer></v-spacer>
+                                                    <v-btn color="primary" @click="checkUncompletedMarkets">
+                                                        Check
+                                                    </v-btn>
+                                                </v-card-actions>
+                                            </v-card>
+                                        </v-col>
+                                        <v-col cols="12" md="6">
+                                            <v-card outlined>
+                                                <v-card-title>Check Product Types</v-card-title>
+                                                <v-card-subtitle>
+                                                    Check uncompleted products.
+                                                </v-card-subtitle>
+                                                <v-card-actions>
+                                                    <v-spacer></v-spacer>
+                                                    <v-btn color="primary" @click="checkTypes">
+                                                        Check
+                                                    </v-btn>
+                                                </v-card-actions>
+                                            </v-card>
+                                        </v-col>
+                                    </v-row>
+                                </v-col>
+                            </v-row>
+                        </v-card-text>
+                    </v-card>
+                </v-container>
+                <v-container v-if="showMarkets">
+                    <v-card>
+                        <v-card-title>
+                            <v-col cols="20">
+                                Uncompleted Markets
+                            </v-col>
+                            <v-col cols="4">
+                                <v-btn color="red" text @click="showMarkets=false">Close</v-btn>
+                            </v-col>
+                        </v-card-title>
+                        <v-card-text>
+                            <v-data-table :headers="market_headers" :items="markets" disable-sort>
+                            </v-data-table>
+                        </v-card-text>
+                    </v-card>
+                </v-container>
+                <v-container v-if="showTypes">
+                    <v-card>
+                        <v-card-title>
+                            <v-col cols="4">
+                                Product Types
+                            </v-col>
+                            <v-col cols="20">
+                                <v-btn :color="comColor" text @click="getCompleted">Completed</v-btn>
+                                <v-btn :color="notComColor" text @click="getNotCompleted">NotCompleted</v-btn>
+                                <v-btn color="red" text @click="showTypes=false">Close</v-btn>
+                            </v-col>
+                        </v-card-title>
+                        <v-card-text>
+                            <v-data-table :headers="headers" :items="productTypes" disable-sort>
+                                <template v-slot:item.num="{ item }">
+                                    <v-icon @click="checkNum(item.name)">mdi-eye</v-icon>
+                                </template>
+                            </v-data-table>
+                        </v-card-text>
+                    </v-card>
+                </v-container>
+                <v-dialog max-width="400" v-model="showNum">
+                    <v-card>
+                        <v-card-title>
+                            Unqualified Num is: {{num}}
+                        </v-card-title>
+                    </v-card>
+                </v-dialog>
+            </v-container>
+        </v-content>
     </v-container>
 </template>
 
 <script>
     import getReq from "../../utils/request/getReq";
+    import TopNav from "../../components/sys/nav/TopNav";
 
     export default {
         name: "AuditTask",
+        components: {TopNav},
         data(){
             return{
                 app:this.$root.$children[0],
@@ -103,6 +144,14 @@
                 showMarkets: false
             }
         },
+        computed:{
+            comColor(){
+                return this.completed ? 'primary' : 'black';
+            },
+            notComColor(){
+                return !this.completed ? 'primary' : 'black';
+            }
+        },
         mounted() {
             this.getAuditTask();
         },
@@ -116,7 +165,16 @@
                 getReq.getUnqualifiedNumInTask(this);
             },
             checkTypes(){
+                this.showTypes = true;
                 getReq.getProductTypesInTask(this);
+            },
+            getCompleted(){
+                this.completed = true;
+                this.checkTypes();
+            },
+            getNotCompleted(){
+                this.completed = false;
+                this.checkTypes();
             },
             checkUncompletedMarkets(){
                 this.showMarkets = true;

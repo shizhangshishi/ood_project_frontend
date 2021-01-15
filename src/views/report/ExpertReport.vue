@@ -1,38 +1,70 @@
 <template>
     <v-container>
-        ExpertReport
-        <v-card>
-            <v-card-text>
-                id: {{expertReport.id}},
-                dateSubmit: {{expertReport.dateSubmit}},
-                submitted: {{expertReport.submitted}},
-            </v-card-text>
-        </v-card>
-        <v-card>
-            <v-btn @click="checkSubMarketReports">Check Sub Market Reports</v-btn>
-        </v-card>
-        <v-card v-if="showSubMarketReports">
-            <v-card-text>
-                <v-data-table :headers="headers" :items="subMarketReports" disable-sort>
-                    <template v-slot:item.detail="{ item }">
-                        <v-icon @click="checkSubMarketReport(item.id)">mdi-eye</v-icon>
-                    </template>
-                </v-data-table>
-            </v-card-text>
-            <v-card-actions>
-                <v-btn @click="showSubMarketReports=false">Close</v-btn>
-                <v-btn @click="submitExpertReport">Submit</v-btn>
-            </v-card-actions>
-        </v-card>
+        <TopNav></TopNav>
+        <v-content>
+            <v-container>
+                <v-container>
+                    <v-card>
+                        <v-card-title>
+                            Expert Report
+                        </v-card-title>
+                        <v-card-text>
+                            <v-row justify="center" align="center">
+                                <v-col cols="10">
+                                    <v-row>
+                                        <v-col cols="12" md="6">
+                                            <v-card outlined>
+                                                <v-card-title>Check Reports</v-card-title>
+                                                <v-card-subtitle>
+                                                    Check all sub market reports.
+                                                </v-card-subtitle>
+                                                <v-card-actions>
+                                                    <v-spacer></v-spacer>
+                                                    <v-btn color="primary" @click="checkSubMarketReports">
+                                                        Check
+                                                    </v-btn>
+                                                </v-card-actions>
+                                            </v-card>
+                                        </v-col>
+                                    </v-row>
+                                </v-col>
+                            </v-row>
+                        </v-card-text>
+                    </v-card>
+                </v-container>
+                <v-container v-if="showSubMarketReports">
+                    <v-card>
+                        <v-card-title>
+                            <v-col cols="20">
+                                All Sub Market Reports
+                            </v-col>
+                            <v-col cols="4">
+                                <v-btn color="primary" text @click="submitExpertReport">Submit</v-btn>
+                                <v-btn color="red" text @click="showSubMarketReports=false">Close</v-btn>
+                            </v-col>
+                        </v-card-title>
+                        <v-card-text>
+                            <v-data-table :headers="headers" :items="subMarketReports" disable-sort>
+                                <template v-slot:item.detail="{ item }">
+                                    <v-icon @click="checkSubMarketReport(item.id)">mdi-eye</v-icon>
+                                </template>
+                            </v-data-table>
+                        </v-card-text>
+                    </v-card>
+                </v-container>
+            </v-container>
+        </v-content>
     </v-container>
 </template>
 
 <script>
     import getReq from "../../utils/request/getReq";
     import postReq from "../../utils/request/postReq";
+    import TopNav from "../../components/sys/nav/TopNav";
 
     export default {
         name: "ExpertReport",
+        components: {TopNav},
         data(){
             return{
                 app:this.$root.$children[0],
