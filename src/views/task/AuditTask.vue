@@ -15,6 +15,17 @@
         </v-card>
         <v-card>
             <v-btn @click="showTypes=true">Check Product Types</v-btn>
+            <v-btn @click="checkUncompletedMarkets">Check Uncompleted Markets</v-btn>
+        </v-card>
+        <v-card v-if="showMarkets">
+            <v-card-title>Uncompleted Markets in Task</v-card-title>
+            <v-card-text>
+                <v-data-table :headers="market_headers" :items="markets" disable-sort>
+                </v-data-table>
+            </v-card-text>
+            <v-card-actions>
+                <v-btn @click="showMarkets=false">Close</v-btn>
+            </v-card-actions>
         </v-card>
         <v-card v-if="showTypes">
             <v-card-title>Product Types in Task</v-card-title>
@@ -74,7 +85,22 @@
 
                 num:'',
                 typeName:'',
-                showNum:false
+                showNum:false,
+
+                market_headers:[
+                    {
+                        text:'Name',
+                        align:'center',
+                        value:'name'
+                    },
+                    {
+                        text:'Role',
+                        align:'center',
+                        value:'role'
+                    }
+                ],
+                markets:[],
+                showMarkets: false
             }
         },
         mounted() {
@@ -91,6 +117,10 @@
             },
             checkTypes(){
                 getReq.getProductTypesInTask(this);
+            },
+            checkUncompletedMarkets(){
+                this.showMarkets = true;
+                getReq.getUncompletedMarkets(this);
             }
         }
     }

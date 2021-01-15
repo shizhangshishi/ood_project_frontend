@@ -131,6 +131,30 @@ function getGradeRecords(vue) {
         })
 }
 
+function getUncompletedMarkets(vue) {
+    let app = vue.app;
+    vue.$axios.get('/user/audit/auditTask/markets/uncompleted',{
+        params:{
+            id: vue.id
+        }
+    })
+        .then(res => {
+            // 根据后端的返回数据修改
+            if (res.status === 200) {
+                app.notify(app.messages.SUCCESS, 'success');
+                // do something
+                vue.markets = res.data;
+            }
+        })
+        .catch(error => {
+            vue.app.notify(error.messages ? error.messages :
+                app.messages.ERR, 'error');
+            vue.app.overlay = false;
+        })
+        .finally(() => {
+            vue.app.overlay = false;
+        })
+}
 function getProducts(vue) {
     let app = vue.app;
     vue.$axios.get('/user/productTypes')
@@ -226,6 +250,8 @@ function getAuditTask(vue) {
             vue.app.overlay = false;
         })
 }
+
+
 function getUnqualifiedNumInTask(vue) {
     let app = vue.app;
     vue.$axios.get('/user/audit/auditTask/productType/unqualified',{
@@ -431,6 +457,7 @@ export default{
     getAuditTasks,
     getAuditTask,
 
+    getUncompletedMarkets,
     getProductTypesInTask,
     getUnqualifiedNumInTask,
 
