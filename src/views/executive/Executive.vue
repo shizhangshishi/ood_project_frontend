@@ -6,16 +6,14 @@
                 <v-card>
                     <v-card-title>
                         <v-col cols="16">
-                            All  Records
+                            All  Records{{records.length}}
                         </v-col>
                         <v-col cols="8">
                             Total Grades:{{grades}}
                         </v-col>
                     </v-card-title>
                     <v-card-text>
-                        <v-data-table>
-                            <v-data-table :headers="headers" :items="records" disable-sort>
-                            </v-data-table>
+                        <v-data-table :headers="headers" :items="records" disable-sort>
                         </v-data-table>
                     </v-card-text>
                 </v-card>
@@ -33,12 +31,17 @@
         data(){
             return{
                 app: this.$root.$children[0],
-                grades:0,
+                grades:'',
                 records: [],
                 name: this.$route.params.name,
                 headers:[
                     {
-                        text: 'ID',
+                        text: 'Task ID',
+                        align: 'center',
+                        value: 'task.id'
+                    },
+                    {
+                        text: 'Record ID',
                         align: 'center',
                         value: 'id'
                     },
@@ -51,7 +54,7 @@
                         text: 'Detail',
                         align: 'center',
                         value: 'detail'
-                    }
+                    },
                 ],
             }
         },

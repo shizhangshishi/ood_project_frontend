@@ -1,16 +1,23 @@
 <template>
     <v-container>
         <v-card>
-            <v-btn @click="checkProducts"> Check All Products</v-btn>
-            <v-btn @click="showAdd=true">Add Product</v-btn>
-            <v-btn @click="showNum=true">Check Unqualified Num</v-btn>
+            <v-card-title>
+                <v-col cols="4">
+                    All Products
+                </v-col>
+                <v-col cols="20">
+                    <v-btn color="primary" text @click="showAdd=true">Add Product</v-btn>
+                </v-col>
+            </v-card-title>
+            <v-card-text>
+                <v-data-table :headers="headers" :items="products" disable-sort>
+                    <template v-slot:item.num="{ item }">
+                        <v-icon @click="checkNum(item.name)">mdi-eye</v-icon>
+                    </template>
+                </v-data-table>
+            </v-card-text>
         </v-card>
-        <v-card v-if="showProducts">
-            <v-data-table :headers="headers" :items="products" disable-sort>
-            </v-data-table>
-            <v-btn @click="showProducts=false">Close</v-btn>
-        </v-card>
-        <v-overlay v-if="showAdd">
+        <v-dialog max-width="600" v-model="showAdd">
             <v-card>
                 <v-card-title>
                     Add Product
@@ -23,25 +30,28 @@
                     <v-btn @click="showAdd=false">Close</v-btn>
                 </v-card-actions>
             </v-card>
-        </v-overlay>
-        <v-overlay v-if="showNum">
+        </v-dialog>
+        <v-dialog max-width="600" v-model="showNum">
             <v-card>
                 <v-card-title>
-                    Unqualified Num: {{num}}
+                    Unqualified Num
                 </v-card-title>
                 <v-card-text>
                     <v-form v-model="form" ref="form">
-                        <v-text-field v-model="uqName" ref="name" label="uqName"></v-text-field>
-                        <v-date-picker v-model="fromTime" ref="fromTime" ></v-date-picker>
-                        <v-date-picker v-model="toTime" ref="toTime" ></v-date-picker>
+                        <v-text-field v-model="uqName" ref="name" label="Product Type"></v-text-field>
+                        <v-text-field v-model="fromTime" ref="fromTime" label="From"></v-text-field>
+                        <v-text-field v-model="toTime" ref="toTime" label="To"></v-text-field>
                     </v-form>
+                    <row v-if="num">
+                        Unqualified Num is {{num}}
+                    </row>
                 </v-card-text>
                 <v-card-actions>
                     <v-btn @click="checkUnqualifiedNum">Check</v-btn>
                     <v-btn @click="showNum=false">Close</v-btn>
                 </v-card-actions>
             </v-card>
-        </v-overlay>
+        </v-dialog>
     </v-container>
 </template>
 
@@ -59,12 +69,17 @@
                         text: 'Name',
                         align:'center',
                         value:'name'
+                    },
+                    {
+                        text: 'Unqualified Num',
+                        align: 'center',
+                        value: 'num'
                     }
                 ],
 
                 addName: '',
 
-                num: 0,
+                num: '',
                 form:'',
                 uqName:'',
                 fromTime:'',
@@ -75,9 +90,11 @@
                 showProducts: false
             }
         },
+        mounted(){
+          this.checkProducts();
+        },
         methods:{
             checkProducts(){
-                this.showProducts = true;
                 getReq.getProducts(this)
             },
             addProduct(){
@@ -86,6 +103,11 @@
             },
             checkUnqualifiedNum(){
                 getReq.getUnqualifiedNum(this);
+            },
+            checkNum(name){
+                this.uqName = name;
+                this.num = '';
+                this.showNum = true;
             }
         }
     }
