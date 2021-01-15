@@ -1,17 +1,17 @@
 <template>
     <v-container>
-        MarketReport
+        subMarketReport
         <v-card>
             <v-card-text>
-                id: {{marketReport.id}},
-                dateSubmit: {{marketReport.dateSubmit}},
-                submitted: {{marketReport.submitted}},
+                id: {{subMarketReport.id}},
+                dateSubmit: {{subMarketReport.dateSubmit}},
+                submitted: {{subMarketReport.submitted}},
             </v-card-text>
         </v-card>
 
         <v-card>
             <v-card-text>
-                <v-data-table :headers="headers" :items="marketReport.entries" disable-sort>
+                <v-data-table :headers="headers" :items="subMarketReport.entries" disable-sort>
                     <template v-slot:item.archive="{ item }">
                         <v-icon @click="openArchive(item)">mdi-upload</v-icon>
                     </template>
@@ -40,12 +40,12 @@
     import postReq from "../../utils/request/postReq";
 
     export default {
-        name: "MarketReport",
+        name: "subMarketReport",
         data(){
             return{
                 app:this.$root.$children[0],
                 id: this.$route.params.id,
-                marketReport:{},
+                subMarketReport:{},
                 headers:[
                     {
                         text:'ID',
@@ -90,11 +90,11 @@
             }
         },
         mounted() {
-            this.getMarketReport();
+            this.getSubMarketReport();
         },
         methods:{
-            getMarketReport(){
-                getReq.getMarketReport(this);
+            getSubMarketReport(){
+                getReq.getSubMarketReport(this);
             },
             openArchive(entry){
                 this.showArchive = true;
@@ -111,7 +111,7 @@
             },
             submitReport(){
                 // console.log(this.entrySlims);
-                postReq.submitMarketReport(this);
+                postReq.submitSubMarketReport(this);
             }
         }
     }

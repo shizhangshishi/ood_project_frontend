@@ -1,9 +1,15 @@
 const ROLE = {
-    AUDIT:  'AUDIT',
-    MARKET: 'MARKET',
-    EXPERT: 'EXPERT',
-    ANY:    'ANY'
+    AUDIT:  'audit',
+    MARKET: 'market',
+    EXPERT: 'expert',
+    ANY:    'any'
 };
+const AUDIT_TASK_TYPE = {
+    EXPERT: 'expert',
+    MARKET: 'market'
+};
+
 export default {
-    ROLE
+    ROLE,
+    AUDIT_TASK_TYPE
 }

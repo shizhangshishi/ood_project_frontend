@@ -18,6 +18,7 @@
 
 <script>
   import messages from './config/messages'
+  import getReq from "./utils/request/getReq";
   export default {
     name: 'App',
 
@@ -34,9 +35,15 @@
         this.snackbarMessage = message;
         this.snackbarType = type;
       },
+      updateDate(){
+        getReq.getDate(this);
+        setTimeout(() => {
+          this.updateDate();
+        }, 10000000)
+      }
     },
     mounted() {
-      // this.updateToken();
+      this.updateDate();
     }
   };
 </script>

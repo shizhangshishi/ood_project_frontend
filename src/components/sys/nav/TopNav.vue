@@ -1,9 +1,12 @@
 <template>
     <v-container>
-        TopNav
-        <v-btn @click="login" v-if="!hasLogin">login</v-btn>
-        <v-btn @click="register" v-if="!hasLogin">register</v-btn>
-        <v-btn @click="logout" v-if="hasLogin">logout</v-btn>
+        <v-card>
+            TopNav
+            <v-btn @click="login" v-if="!hasLogin">login</v-btn>
+            <v-btn @click="register" v-if="!hasLogin">register</v-btn>
+            <v-btn @click="logout" v-if="hasLogin">logout</v-btn>
+            <v-card-text>Date:{{date}}</v-card-text>
+        </v-card>
     </v-container>
 </template>
 
@@ -12,7 +15,8 @@
         name: "TopNav",
         data(){
             return{
-                app: this.$root.$children[0]
+                app: this.$root.$children[0],
+                date:this.$store.state.date
             }
         },
         computed:{
