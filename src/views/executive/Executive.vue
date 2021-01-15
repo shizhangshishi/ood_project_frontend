@@ -56,7 +56,8 @@
             }
         },
         mounted(){
-
+            this.getTotalGrades();
+            this.getGradeRecords();
         },
         methods:{
             getTotalGrades(){
