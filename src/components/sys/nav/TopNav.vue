@@ -1,10 +1,23 @@
 <template>
     <v-container>
+        <v-app-bar app clipped-left flat color="blue">
+            <v-app-bar-nav-icon class="d-lg-none"/>
+            <v-img src="../../../assets/logo.svg" alt="Logo" max-height="50px" max-width="50px"></v-img>
+            <v-spacer></v-spacer>
+            <v-btn text v-if="!hasLogin" @click="login" >
+                <v-icon>mdi-login</v-icon>
+                <div class="d-none d-md-flex">Login</div>
+            </v-btn>
+            <v-btn text v-if="!hasLogin" @click="register">
+                <v-icon>mdi-account-arrow-right-outline</v-icon>
+                <div class="d-none d-md-flex">Register</div>
+            </v-btn>
+            <v-btn text v-if="hasLogin" @click="logout" class="navBtn">
+                <v-icon color="white">mdi-login</v-icon>
+                <div class="d-none d-md-flex">Logout</div>
+            </v-btn>
+        </v-app-bar>
         <v-card>
-            TopNav
-            <v-btn @click="login" v-if="!hasLogin">login</v-btn>
-            <v-btn @click="register" v-if="!hasLogin">register</v-btn>
-            <v-btn @click="logout" v-if="hasLogin">logout</v-btn>
             <v-card-text>Date:{{date}}</v-card-text>
         </v-card>
     </v-container>
@@ -52,5 +65,8 @@
 </script>
 
 <style scoped>
+    .navBtn{
+        color: white;
+    }
 
 </style>
