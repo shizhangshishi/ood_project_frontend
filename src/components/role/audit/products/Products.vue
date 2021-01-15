@@ -42,7 +42,7 @@
                         <v-text-field v-model="fromTime" ref="fromTime" label="From"></v-text-field>
                         <v-text-field v-model="toTime" ref="toTime" label="To"></v-text-field>
                     </v-form>
-                    <row v-if="num">
+                    <row>
                         Unqualified Num is {{num}}
                     </row>
                 </v-card-text>
