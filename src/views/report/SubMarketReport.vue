@@ -116,6 +116,10 @@
                     type: this.currEntry.type.name,
                     unqualified: this.currEntry.unqualified
                 };
+                let index = this.entrySlims.findIndex(e=>e.type===entrySlim.type)
+                if(index >= 0){
+                    this.entrySlims.splice(index,1)
+                }
                 this.entrySlims.push(entrySlim);
                 this.showArchive = false;
             },
