@@ -1,42 +1,86 @@
 <template>
     <v-container>
-        <v-card>
-            <v-card-title>Executives</v-card-title>
-            <v-card-text>
-                <v-btn @click="checkMarkets">Check Markets</v-btn>
-                <v-btn @click="checkExperts">Check Experts</v-btn>
-            </v-card-text>
-        </v-card>
-        <v-card v-if="showMarkets">
-            <v-card-title>
-                All Markets
-            </v-card-title>
-            <v-card-text>
-                <v-data-table :headers="headers" :items="markets" disable-sort>
-                    <template v-slot:item.records="{ item }">
-                        <v-icon @click="getRecords(item.name)">mdi-eye</v-icon>
-                    </template>
-                </v-data-table>
-            </v-card-text>
-            <v-card-actions>
-                <v-btn @click="showMarkets=false">Close</v-btn>
-            </v-card-actions>
-        </v-card>
-        <v-card v-if="showExperts">
-            <v-card-title>
-                All Experts
-            </v-card-title>
-            <v-card-text>
-                <v-data-table :headers="headers" :items="experts" disable-sort>
-                    <template v-slot:item.records="{ item }">
-                        <v-icon @click="getRecords(item.name)">mdi-eye</v-icon>
-                    </template>
-                </v-data-table>
-            </v-card-text>
-            <v-card-actions>
-                <v-btn @click="showExperts=false">Close</v-btn>
-            </v-card-actions>
-        </v-card>
+        <v-container>
+            <v-card>
+                <v-card-title>
+                    Executives
+                </v-card-title>
+                <v-card-text>
+                    <v-row justify="center" align="center">
+                        <v-col cols="10">
+                            <v-row>
+                                <v-col cols="12" md="6">
+                                    <v-card outlined>
+                                        <v-card-title>Check Experts</v-card-title>
+                                        <v-card-subtitle>
+                                            Check all experts.
+                                        </v-card-subtitle>
+                                        <v-card-actions>
+                                            <v-spacer></v-spacer>
+                                            <v-btn color="primary" @click="checkExperts">
+                                                Check
+                                            </v-btn>
+                                        </v-card-actions>
+                                    </v-card>
+                                </v-col>
+                                <v-col cols="12" md="6">
+                                    <v-card outlined>
+                                        <v-card-title>Check Markets</v-card-title>
+                                        <v-card-subtitle>
+                                            Check all markets.
+                                        </v-card-subtitle>
+                                        <v-card-actions>
+                                            <v-spacer></v-spacer>
+                                            <v-btn color="primary" @click="checkMarkets">
+                                                Check
+                                            </v-btn>
+                                        </v-card-actions>
+                                    </v-card>
+                                </v-col>
+                            </v-row>
+                        </v-col>
+                    </v-row>
+                </v-card-text>
+            </v-card>
+        </v-container>
+        <v-container v-if="showMarkets">
+            <v-card>
+                <v-card-title>
+                    <v-col cols="4">
+                        All Markets
+                    </v-col>
+                    <v-col cols="20">
+                        <v-btn color="red" text @click="showMarkets=false">Close</v-btn>
+                    </v-col>
+                </v-card-title>
+                <v-card-text>
+                    <v-data-table :headers="headers" :items="markets" disable-sort>
+                        <template v-slot:item.records="{ item }">
+                            <v-icon @click="getRecords(item.name)">mdi-eye</v-icon>
+                        </template>
+                    </v-data-table>
+                </v-card-text>
+            </v-card>
+        </v-container>
+        <v-container v-if="showExperts">
+            <v-card>
+                <v-card-title>
+                    <v-col cols="4">
+                        All Experts
+                    </v-col>
+                    <v-col cols="20">
+                        <v-btn color="red" text @click="showExperts=false">Close</v-btn>
+                    </v-col>
+                </v-card-title>
+                <v-card-text>
+                    <v-data-table :headers="headers" :items="experts" disable-sort>
+                        <template v-slot:item.records="{ item }">
+                            <v-icon @click="getRecords(item.name)">mdi-eye</v-icon>
+                        </template>
+                    </v-data-table>
+                </v-card-text>
+            </v-card>
+        </v-container>
     </v-container>
 </template>
 
@@ -74,12 +118,12 @@
         methods:{
             checkMarkets(){
                 this.showMarkets = true;
-                // console.log(this.$store.state.token.name);
-                // console.log(localStorage.getItem('token'));
+                this.showExperts = false;
                 getReq.getMarkets(this);
             },
             checkExperts(){
                 this.showExperts = true;
+                this.showMarkets = false;
                 getReq.getExperts(this);
                 // getReq.getExperts(this);
             },

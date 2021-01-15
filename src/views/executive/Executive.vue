@@ -1,42 +1,39 @@
 <template>
     <v-container>
-        <v-card>
-            {{name}}
-        </v-card>
-        <v-card>
-            <v-card-title>
-                grades:{{grades}}
-            </v-card-title>
-            <v-card-actions>
-                <v-btn @click="getTotalGrades">Get Total Grades</v-btn>
-            </v-card-actions>
-        </v-card>
-        <v-card>
-            <v-card-title>
-                Get Grade Records
-            </v-card-title>
-            <v-card-actions>
-                <v-btn @click="getGradeRecords">Get Grade Records</v-btn>
-            </v-card-actions>
-        </v-card>
-        <v-card>
-            Records
-            <v-data-table>
-                <v-data-table :headers="headers" :items="records" disable-sort>
-                </v-data-table>
-            </v-data-table>
-        </v-card>
+        <TopNav></TopNav>
+        <v-content>
+            <v-container>
+                <v-card>
+                    <v-card-title>
+                        <v-col cols="16">
+                            All  Records
+                        </v-col>
+                        <v-col cols="8">
+                            Total Grades:{{grades}}
+                        </v-col>
+                    </v-card-title>
+                    <v-card-text>
+                        <v-data-table>
+                            <v-data-table :headers="headers" :items="records" disable-sort>
+                            </v-data-table>
+                        </v-data-table>
+                    </v-card-text>
+                </v-card>
+            </v-container>
+        </v-content>
     </v-container>
 </template>
 
 <script>
     import getReq from '../../utils/request/getReq'
+    import TopNav from "../../components/sys/nav/TopNav";
     export default {
         name: "Executive",
+        components: {TopNav},
         data(){
             return{
                 app: this.$root.$children[0],
-                grades:'',
+                grades:0,
                 records: [],
                 name: this.$route.params.name,
                 headers:[

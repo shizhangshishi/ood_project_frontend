@@ -11,7 +11,7 @@ const REGISTER_S = 'Register successfully';
 
 const GET_MARKETS_S = 'Get markets successfully.';
 const NO_MARKET = 'There is no market.';
-const GET_EXPERTS_S = 'Get markets successfully.';
+const GET_EXPERTS_S = 'Get experts successfully.';
 const NO_EXPERT =  'There is no expert.';
 
 const GET_GRADES_S = 'Get total grades successfully';

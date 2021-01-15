@@ -118,7 +118,7 @@ function getGradeRecords(vue) {
             if (res.status === 200) {
                 app.notify(app.messages.SUCCESS, 'success');
                 // do something
-                vue.records = res.data.records;
+                vue.records = res.data;
             }
         })
         .catch(error => {
